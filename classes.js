@@ -41,7 +41,7 @@ class Employee {
   }
 }
 
-const newEmployee = new Employee('lauren', 'rowley', 'some email', 24)
+const newEmployee = new Employee('l', 'r', 'e', 24)
 
 ////////// PROBLEM 2 //////////
 
@@ -71,7 +71,7 @@ class Manager extends Employee {
   }
 }
 
-const newManager = new Manager ('mr', 'manager', 'some email', 23)
+const newManager = new Manager ('lauren', 'r', 'e', 23)
 
 ////////// PROBLEM 3 //////////
 
