@@ -29,8 +29,19 @@
   Call your class Employee and receive all the data in the constructor in the order listed above.
 */
 
-//Code Here
+class Employee {
+  constructor(first_name, last_name, email, age){
+    this.first_name= first_name
+    this.last_name= last_name
+    this.email= email
+    this.age= age
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`
+  }
+}
 
+const newEmployee = new Employee('l', 'r', 'e', 24)
 
 ////////// PROBLEM 2 //////////
 
@@ -47,8 +58,20 @@
   Call your new class Manager
 */
 
-//Code Here
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age)
+    this.reports= [];
+  }
+  hire(employee){
+    this.reports.push(employee)
+  }
+  fire(index){
+    this.reports.splice(index, 1)
+  }
+}
 
+const newManager = new Manager ('lauren', 'r', 'e', 23)
 
 ////////// PROBLEM 3 //////////
 
@@ -71,7 +94,42 @@
   Call your new class ProgressiveManager
 */
 
-//Code Here
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age, reports, title, bonus){
+    super(first_name, last_name, email, age, reports)
+    this.title= 'Not a manager'
+    this.bonus= 0
+  }
+  titleUpdate(){
+    let reps = this.reports.length
+    if(reps === 0){
+      this.title= 'Not a manager'
+    }else if(reps < 4){
+      this.title ='Barely Manager'
+    }else if(reps < 11){
+      this.title = 'Mostly Manager'
+    }else if(reps < 51){
+      this.title = 'Manager'
+    }else if(reps < 101){
+      this.title = 'Manager Plus'
+    }else {
+      this.title = 'Bestest Manager'
+    }
+  }
+  hire(employee){
+    super.hire(employee)
+    this.titleUpdate()
+  }
+  fire(index){
+    super.fire(index)
+    this.bonus += 100
+    this.titleUpdate()
+  }
+}
+
+/* so this one is extending the parent object and giving it some extra "bonus features" in a way. for the methods, you don't have to name them the same thing (for jasmine and the spec runner it is looking for the "hire" and "fire" but normally it would be okay to name it whatever you want) but it's kind of a good idea to keep their names similar because they are doing basically the same thing, just with the bonus features of updating the title */
+
+/* also important: for the first if, you can't just do if(reps === 0) return this.title because even though this.title is set to "not a manager" at the beginning (above) this.reports.length could change values. you want it to be a hard floor of 0 so that the next conditional has a range.  */
 
 
 
@@ -98,6 +156,25 @@
         - The anonymous function should decrease wear_and_tear_count by 10, and set needs_reboot to false
 */
 
-//Code Here
+class Machine {
+  constructor(){
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
+  }
+  makeWidget(num){
+    this.widgets_made_count += num;
+    this.wear_and_tear_count 
+  }
+  fixMachine(){
+    this.needs_reboot = true;
+  }
+  reboot(){
+    return function(){
+      wear_and_tear_count -= 10
+      needs_reboot = false
+    }
+  }
+}
 
 

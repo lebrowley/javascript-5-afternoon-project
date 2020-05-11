@@ -22,13 +22,13 @@ function outer() {
   Invoke outer saving the return value into another variable called 'inner'.
 */
   
-// Code Here
+const inner = outer()
 
 
 
 //Once you do that, invoke inner.
 
-//Code Here
+inner()
 
 
 
@@ -51,7 +51,10 @@ function callFriend(name) {
   (HINT: You will need to pass in arguments to both function invocations)
 */
 
-//Code Here
+let callJake = callFriend('Jake')
+callJake('435-215-9248')
+
+//how is it callJake() can now take in a number (as a string)? how will the inner function be able to know that that is actually the number parameter for dial and then put it in the right place in the return string?? 
 
 
 
@@ -61,16 +64,27 @@ function callFriend(name) {
   Write a function called makeCounter that makes the following code work properly.
 */
 
-//Code Here
+// function makeCounter(){
+//   return function(num){
+//     return num++
+//   }
+// }
 
+// why doesn't the function above increment but the one below does??
 
+function makeCounter(){
+  let num = 1
+  return function(){
+    return num ++
+  }
+}
 
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -86,19 +100,28 @@ function callFriend(name) {
 */
 
 function counterFactory(value) {
-  // Code here.
+  let inc = function(){
+    value++
+    return value
+  }
+  let dec = function(){
+    value--
+    return value
+  }
 
   return {
-
+    inc, 
+    dec
   };
 }
 
 counter = counterFactory(10);
-// counter.inc() // 11
-// counter.inc() // 12
-// counter.inc() // 13
-// counter.dec() // 12
+counter.inc() // 11
+counter.inc() // 12
+counter.inc() // 13
+counter.dec() // 12
 
+//at this point, should I have things showing up in my console?? I only ever have errors show up if things show up and nothing when there is no error... what i mean is
 
 
 ////////// PROBLEM 5 //////////
@@ -112,10 +135,12 @@ counter = counterFactory(10);
 function motivation( firstname, lastname ) {
   var welcomeText = "You're doing awesome, keep it up";
 
-  // code message function here.
+  let message = function(){
+    return `${welcomeText} ${firstname} ${lastname}.`
+  }
 
   //Uncommment this to return the value of your message function
-  //return message;
+  return message;
 }
 
 var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome keep it up Billy Bob.
@@ -143,9 +168,15 @@ var module = (function() {
   // Anything that is being returned is made public and can be invoked from
   // outside our lexical scope
   return {
-    // Code here.
+    publicMethod: function(){
+      return privateMethod()
+    }
   };
 })();
+
+//what's up with all the parentheses going on at the bottom here??
+
+module.publicMethod()
 
 
 
@@ -162,7 +193,14 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    // Code here
+    addToSecret: function(num){
+      secret += num
+      return secret
+    },
+    takeAwayFromSecret: function(num){
+      secret -= num
+      return secret
+    }
   };
 }
 
@@ -188,9 +226,17 @@ function secretNumber() {
 
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
+    let now = i
     setTimeout(function() {
-      console.log(i);
+      console.log(now);
     }, i * 1000);
   }
 }
 timeOutCounter();
+
+
+// what is i * 1000 doing?
+// what is the closure doing for us? 
+/* i feel like it's kind of like a stepping stone- we have a for loop that gives us the variable i starting at 0. i will add one until it reaches 5. we need to capture that moment of time, however, of when i is equal to 0 and 1 and 2 and 3 and 4 and 5 all individually. so we make a new variable where those numbers can be stored one by one and then we tell the console log to show us those numbers one at a time. */
+
+//the i * 1000 though... what is that doing? milliseconds to seconds?? but how does it now about time??
