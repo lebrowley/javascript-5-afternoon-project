@@ -224,15 +224,26 @@ function secretNumber() {
   Fix the code below to log the desired output.
 */
 
-function timeOutCounter() {
-  for (var i = 0; i <= 5; i++) {
-    let now = i
-    setTimeout(function() {
-      console.log(now);
-    }, i * 1000);
+function timeOutCounter(){
+  for (var i=0; i <= 5; i++){
+    function memoryClosure(index){
+      setTimeout(function() {
+        console.log(index)
+      }, index * 1000)
+    }
+    memoryClosure(i)
   }
 }
-timeOutCounter();
+
+// function timeOutCounter() {
+//   for (var i = 0; i <= 5; i++) {
+//     let now = i
+//     setTimeout(function() {
+//       console.log(now);
+//     }, i * 1000);
+//   }
+// }
+// timeOutCounter();
 
 
 // what is i * 1000 doing?

@@ -162,19 +162,26 @@ class Machine {
     this.wear_and_tear_count = 0;
     this.needs_reboot = false;
   }
-  makeWidget(num){
+  makeWidgets(num){
     this.widgets_made_count += num;
-    this.wear_and_tear_count 
+    this.wear_and_tear_count = Math.floor(this.widgets_made_count / 50);
   }
   fixMachine(){
     this.needs_reboot = true;
   }
   reboot(){
-    return function(){
-      wear_and_tear_count -= 10
-      needs_reboot = false
+    return () => {
+      this.wear_and_tear_count -= 10;
+      this.needs_reboot = false;
     }
   }
 }
 
+
+/* Math.floor always rounds down to the nearest integer
+arrow functions get their context from where they are written- they look
+to their containing lexical scope block so it's looking up to Machine...REVIEW THIS SECTION OF MORNING REVIEW
+or you could do .bind(this) at the very end of reboot to explicitly
+make the context
+*/
 
